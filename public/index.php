@@ -11,7 +11,7 @@ if (empty($_SESSION['csrf_token'])) {
   // Jika belum ada, buat token CSRF yang unik
   $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
-echo "ok";
-// require_once __DIR__.'/../app/init.php';
+// echo "ok";
+require_once __DIR__.'/../app/init.php';
 
-// $app = new App;
+$app = new App;

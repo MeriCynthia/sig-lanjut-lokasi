@@ -5,9 +5,8 @@ if (getenv('VERCEL_ENV') === 'production' || getenv('VERCEL_ENV') === 'preview')
   // ambil nama url secara dinamis. using X-Forwarded-Proto header, which is set by Vercel to indicate whether the request was made over HTTPS.
   $protocol = (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ? 'https://' : 'http://';
   $fullUrl = $protocol . $_SERVER['HTTP_HOST'];
-  // define('BASEURL', $fullUrl);
-  // define('BASEURL', 'http://localhost:8080/mm/public'); // hanya untuk testing
 
+  define('BASEURL', $fullUrl); // untuk production
 
   $host = $_ENV['PG_HOST'] ?? "ep-frosty-haze-a1kda0nu.ap-southeast-1.aws.neon.tech";
   $port = $_ENV['PG_PORT'] ?? "5432";

@@ -14,10 +14,10 @@ class App
         // die(var_dump($url));
 
         //cek data sesi login apa sudah terjadi, melalui apa ada data dalam session user
-        if (isset($_SESSION['user'])) {
+        if (isset($_SESSION['pengguna'])) {
             // berhasil masuk session user??
             // session user tidak berhasil masuk, tidak masuk
-            // var_dump($_SESSION['user']);
+            // var_dump($_SESSION['pengguna']);
             // die();
             $this->controller = "Home"; // halaman default setelah login
             if (isset($url[0])) { // cek url kontroller sudah disebut

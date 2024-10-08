@@ -1,68 +1,38 @@
 <?php 
 
 class User_model {
-    private $table = "User";
     private $db;
     
     public function __construct(){
       $this->db = new Database;
     }
-    public function getAllUser() {
-        $this->db->query("SELECT * FROM ".$this->table);
-        return $this->db->resultSet();
-    }
-    public function getUserById($id) {
-        $this->db->query("SELECT * FROM ".$this->table." WHERE id = :id");
-        $this->db->bind(":id",$id);
-        return $this->db->single();
-    }
 
+    // untuk login
     public function getUserByEmailnPin($email,$pin) {
-        $this->db->query("SELECT * FROM ".$this->table." WHERE email = :email AND pin = :pin");
-        $this->db->bind(":email",$email);
-        $this->db->bind(":pin",$pin);
+        // my problem change to number pgsql
+        $this->db->query('SELECT * FROM pengguna WHERE email = ? AND pin = ?');
+        $this->db->bind(1,$email);
+        $this->db->bind(2,$pin);
         return $this->db->single();
     }
 
+    // untuk daftar
     public function getUserByEmailorTelp($email,$telp) {
-        $this->db->query("SELECT * FROM ".$this->table." WHERE email = :email OR telp = :telp");
-        $this->db->bind(":email",$email);
-        $this->db->bind(":telp",$telp);
+        $this->db->query("SELECT * FROM pengguna WHERE email = ? OR telp = ?");
+        $this->db->bind(1,$email);
+        $this->db->bind(2,$telp);
         return $this->db->single();
     }
 
-    public function getAllImageFileNames() {
-        $this->db->query("SELECT gambar FROM ".$this->table);
-        return $this->db->resultSet();
-    }
-
-    public function getUserByFileName($gambar) {
-        $this->db->query("SELECT gambar FROM ".$this->table." WHERE gambar = :gambar");
-        $this->db->bind(":gambar",$gambar);
-        return $this->db->single();
-    }
-
-    public function tambahDataTopup($topup) {
-        $user = $this->getUserById($_SESSION["user"]["id"]);
-        $total = $user["saldo"] + intval($topup);
-        $_SESSION["topup"] = "<br>saldo ".$user["nama"]." sebesar ".$user["saldo"]." + ".$topup." = \"".$total."\" <br>";
-        $sql = "UPDATE ".$this->table." SET saldo = :saldo WHERE ".$this->table.".id = :id";
-        $this->db->query($sql);
-        $this->db->bind(":id",$user["id"]);
-        $this->db->bind(":saldo",$total);
-        
-        $this->db->execute();
-        return $this->db->rowCount();
-    }
-
+    // tambah data user
     public function tambahDataUser() {
-        $sql = "INSERT INTO ".$this->table." (`nama`, `email`, `telp`, `pin`, `gambar`, `saldo`) VALUES (:nama, :email, :telp, :pin, :gambar, 0)";
+        // $sql = "INSERT INTO pengguna (`nama`, `email`, `telp`, `pin`) VALUES (:nama, :email, :telp, :pin)";
+        $sql = "INSERT INTO pengguna (nama, email, telp, pin) VALUES (?, ?, ?, ?)";
         $this->db->query($sql);
-        $this->db->bind(":nama",$_SESSION["user"]["nama"]);
-        $this->db->bind(":email",$_SESSION["user"]["email"]);
-        $this->db->bind(":telp","0" . $_SESSION["user"]["telp"]);
-        $this->db->bind(":pin",$_SESSION["user"]["pin"]);
-        $this->db->bind(":gambar",$_SESSION["user"]["gambar"]);
+        $this->db->bind(1,$_SESSION["user"]["nama"]);
+        $this->db->bind(2,$_SESSION["user"]["email"]);
+        $this->db->bind(3,$_SESSION["user"]["telp"]);
+        $this->db->bind(4,$_SESSION["user"]["pin"]);
 
         $this->db->execute();
         return $this->db->rowCount();

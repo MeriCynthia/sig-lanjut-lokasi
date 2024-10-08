@@ -60,22 +60,21 @@ INSERT INTO `toko` (`id`, `name`, `alamat`, `lat`, `lng`) VALUES
 
 
 
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE IF NOT EXISTS `user` (
+DROP TABLE IF EXISTS `pengguna`;
+CREATE TABLE IF NOT EXISTS `pengguna` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `telp` varchar(13) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pin` char(6) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `gambar` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `emailtelp` (`email`,`telp`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-DELETE FROM `user`;
-INSERT INTO `user` (`id`, `name`, `email`, `telp`, `pin`, `gambar`) VALUES
-	(1, 'Budi Nugraha', 'a@a.a', '081234567891', '123456', 'budi.jpg'),
-	(2, 'Andi Sebastian', 'c@c.c', '082148213646', '123458', 'andi.jpg');
+DELETE FROM `pengguna`;
+INSERT INTO `pengguna` (`id`, `name`, `email`, `telp`, `pin`) VALUES
+	(1, 'Budi Nugraha', 'a@a.a', '081234567891', '123456'),
+	(2, 'Andi Sebastian', 'c@c.c', '082148213646', '123458');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
@@ -90,19 +89,19 @@ CREATE TABLE IF NOT EXISTS `transaksi` (
   `prod_id` char(13) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `toko_id` int NOT NULL,
   `harga` int DEFAULT NULL,
-  `user_id` int NOT NULL,
+  `pengguna_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_transaksi_user` (`user_id`),
+  KEY `FK_transaksi_pengguna` (`pengguna_id`),
   KEY `FK_transaksi_produk` (`prod_id`),
   KEY `FK_transaksi_toko` (`toko_id`),
   CONSTRAINT `FK_transaksi_produk` FOREIGN KEY (`prod_id`) REFERENCES `produk` (`id`),
   CONSTRAINT `FK_transaksi_toko` FOREIGN KEY (`toko_id`) REFERENCES `toko` (`id`),
-  CONSTRAINT `FK_transaksi_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  CONSTRAINT `FK_transaksi_pengguna` FOREIGN KEY (`pengguna_id`) REFERENCES `pengguna` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Membuang data untuk tabel poi_db.transaksi: ~2 rows (lebih kurang)
 DELETE FROM `transaksi`;
-INSERT INTO `transaksi` (`id`, `prod_id`, `toko_id`, `harga`, `user_id`) VALUES
+INSERT INTO `transaksi` (`id`, `prod_id`, `toko_id`, `harga`, `pengguna_id`) VALUES
 	(5, '1234567890123', 1, 3000, 1),
 	(7, '2234567890121', 2, 3000, 1);
 

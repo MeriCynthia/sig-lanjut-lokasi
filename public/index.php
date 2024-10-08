@@ -27,3 +27,13 @@ $app = new App;
 //   // Kode untuk lingkungan pengembangan
 //   echo "We're in development!";
 // }
+
+// // "neondb_owner");
+// // define('DB_PASS', $_ENV['PG_PASSWORD'] ?? "WDB1yOzHSk5R");
+//  try {
+//   $endpoint = $_ENV['PG_ENDPOINT'] ?? "ep-frosty-haze-a1kda0nu";
+//   $mypd = new PDO("pgsql:host=ep-frosty-haze-a1kda0nu.ap-southeast-1.aws.neon.tech;port=5432;dbname=neondb;sslmode=require;options=endpoint=$endpoint", "neondb_owner", "WDB1yOzHSk5R"); 
+//   echo "koneksi berhasil";
+// } catch (PDOException $e) {
+//   echo $e->getMessage();
+//  }

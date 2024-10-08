@@ -7,29 +7,31 @@ class Database
   private $pass = DB_PASS;
   private $dsn = DSN;
 
+  // private $endpoint = DB_ENDPOINT;
+
   private $dbh; // database handler
   private $stmt;
 
   public function __construct()
   {
     // Debugging
-    var_dump($this->dsn, DB_USER, DB_PASS);
+    // var_dump($this->dsn);
 
     // db jadi dinamis menyesuaikan mysql (local) atau postgre (preview & prod) 
     $option = [
-      PDO::ATTR_PERSISTENT => true,            // Gunakan koneksi persisten
-      PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // Lempar pengecualian untuk kesalahan
-      PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC // Ambil hasil sebagai array asosiatif
+      // PDO::ATTR_PERSISTENT => true, // tidak perlu koneksi berulang
+      PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+      PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+      PDO::ATTR_EMULATE_PREPARES => false
     ];
 
     try {
       $this->dbh = new PDO($this->dsn, $this->user, $this->pass, $option);
+      // die("database berhasil diakses");
 
     } catch (PDOException $e) {
       // Log error message with a timestamp
-      error_log("Database connection error: " . $e->getMessage());
-      // Display a user-friendly message without revealing sensitive information
-      die('Database connection failed. Please try again later');
+      die("Koneksi gagal guys 😭: " . $e->getMessage());
     }
   }
 

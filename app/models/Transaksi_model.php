@@ -36,7 +36,7 @@ class Transaksi_model
     if ($adaData) {
       // cek apakah sama persis, jika iya maka kirim badut
       unset($cekData['id']);
-      $cekDataBaru = array_merge($transaksi, ["user_id" => $_SESSION['user']['id']]);
+      $cekDataBaru = array_merge($transaksi, ["pengguna_id" => $_SESSION['pengguna']['id']]);
       // die(var_dump($cekData, $cekDataBaru));
       if($cekData == $cekDataBaru) {
         return 0; // 0 untuk badut
@@ -47,8 +47,8 @@ class Transaksi_model
     } else {
 
       // Query untuk menambah atau memperbarui transaksi, tanpa masalah
-      $sql = "INSERT INTO " . $this->table . " (prod_id, toko_id, harga, user_id) 
-      VALUES (:prod_id, :toko_id, :harga, :user_id)";
+      $sql = "INSERT INTO transaksi (prod_id, toko_id, harga, pengguna_id) 
+      VALUES (:prod_id, :toko_id, :harga, :pengguna_id)";
 
       // Menyiapkan query
       $this->db->query($sql);
@@ -57,7 +57,7 @@ class Transaksi_model
       $this->db->bind(':prod_id', $transaksi['prod_id']);
       $this->db->bind(':toko_id', $transaksi['toko_id']);
       $this->db->bind(':harga', $transaksi['harga']);
-      $this->db->bind(':user_id', $_SESSION['user']['id']);
+      $this->db->bind(':pengguna_id', $_SESSION['pengguna']['id']);
 
       // Eksekusi query
       $this->db->execute();
@@ -69,11 +69,11 @@ class Transaksi_model
 
   public function updateDataTransaksi($idLama, $baru)
   {
-    // die(var_dump($idLama, $baru['harga'], $_SESSION['user']['id']));
-    $sql = "UPDATE transaksi SET harga = :harg, user_id = :use_id WHERE id = :id_lama";
+    // die(var_dump($idLama, $baru['harga'], $_SESSION['pengguna']['id']));
+    $sql = "UPDATE transaksi SET harga = :harg, pengguna_id = :use_id WHERE id = :id_lama";
     $this->db->query($sql);
     $this->db->bind(':harg', $baru['harga']);
-    $this->db->bind(':use_id', $_SESSION['user']['id']);
+    $this->db->bind(':use_id', $_SESSION['pengguna']['id']);
     $this->db->bind(':id_lama', $idLama);
     $this->db->execute();
     return 2; // tanda data diperbarui

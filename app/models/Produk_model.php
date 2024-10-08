@@ -2,7 +2,6 @@
 
 class Produk_model
 {
-    private $table = 'produk';
     private $db;
 
     public function __construct()
@@ -24,8 +23,14 @@ class Produk_model
 
     public function tambahDataProduk($produk)
     {
-        $sql = "INSERT INTO " . $this->table . " (id, name) VALUES (:id, :nama)
-        ON DUPLICATE KEY UPDATE name = VALUES(name)";
+        if(DB_NOW_MYSQL) {
+            $sql = "INSERT INTO produk (id, name) VALUES (:id, :nama)
+            ON DUPLICATE KEY UPDATE name = VALUES(name)"; //versi mysql
+        } else {
+            $sql = "INSERT INTO produk (id, name) VALUES (:id, :nama)
+            ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name";
+        }
+
         $this->db->query($sql);
         $this->db->bind(':id', $produk['id']);
         $this->db->bind(':nama', $produk['name']);
@@ -36,7 +41,7 @@ class Produk_model
 
     public function updateProductById($id, $name)
     {
-        $sql = "UPDATE " . $this->table . " SET name = :nama  WHERE id = :id";
+        $sql = "UPDATE produk SET name = :nama  WHERE id = :id";
         $this->db->query($sql);
         $this->db->bind(':id', $id);
         $this->db->bind(':nama', $name);
@@ -47,7 +52,7 @@ class Produk_model
 
     public function deleteProductById($id)
     {
-        $sql = "DELETE FROM " . $this->table . " WHERE id = :id";
+        $sql = "DELETE FROM produk WHERE id = :id";
         $this->db->query($sql);
         $this->db->bind(':id', $id);
 

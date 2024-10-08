@@ -40,13 +40,20 @@ display_flash_message();
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script>
   let productID = document.getElementById('code');
+  let box = { width: 350, height: 250 };
+  
+  if (window.innerWidth <= 425) {
+    box = { width: 250, height: 150 };
+  }
+
   let html5QrcodeScanner = new Html5QrcodeScanner(
     "reader",
-    { fps: 10, qrbox: { width: 250, height: 250 } },
-            /* verbose= */ false);
+    { fps: 10, qrbox: box },
+    /* verbose= */ false);
+
   html5QrcodeScanner.render((decodedText, decodedResult) => {
     productID.value = decodedText;
-    p.value = decodedText;
+    alert(`berhasil Scan Code 😆 \n${decodedText}`);
   }, (error) => {
     console.warn(`Code scan error = ${error}`);
   });

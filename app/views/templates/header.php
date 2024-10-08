@@ -31,7 +31,7 @@ if (isset($data['aktif'])) {
 	<div class="container">
 		<nav class="navbar navbar-expand-lg bg-body-tertiary">
 			<div class="container-fluid d-flex">
-				<a class="navbar-brand" href="<?= BASEURL; ?>/Profile"><?= $_SESSION['user']['name'] ?></a>
+				<a class="navbar-brand" href="<?= BASEURL; ?>/Profile"><?= $_SESSION['pengguna']['name'] ?></a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
 					aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>

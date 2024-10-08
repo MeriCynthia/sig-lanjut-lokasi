@@ -42,7 +42,7 @@ display_flash_message();
               Please provide a valid Address 🙏
             </div>
           </div>
-          <button type="submit" id="submit" class="btn btn-primary mb-0 d-none">Update Data</button>
+          <button type="submit" class="btn btn-primary my-3">Update Data</button>
         </form>
       </div>
     </div>
@@ -53,7 +53,6 @@ display_flash_message();
   let center = { lat: -0.05187711699572585, lng: 109.35046474605898 }; // gor untan
   let map;
   let marker;
-  let submit = document.getElementById('submit');
 
   async function initMap() {
     // Fetch data dari API
@@ -115,8 +114,6 @@ display_flash_message();
       // Mengisi input form dengan latitude dan longitude
       document.getElementById('lat').value = latLng.lat();
       document.getElementById('lng').value = latLng.lng();
-      // input dimasukkan, tombol submit di tampilkan
-      submit.classList.remove('d-none');
 
       // Isi InfoWindow dengan latitude dan longitude
       const contentString = `

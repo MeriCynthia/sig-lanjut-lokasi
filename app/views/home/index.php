@@ -9,7 +9,7 @@
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-body px-0 pt-0 pb-2">
-                    <div id="reader" width="600px"></div>
+                    <div id="reader" height="5rem"></div>
                     <!-- <input type="file" id="qr-input-file" accept="image/*"> -->
                 </div>
             </div>
@@ -48,9 +48,14 @@
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script>
     let productID = document.getElementById('cameraValue');
+    let box = { width: 350, height: 250 };
+    if (window.innerWidth <= 425) {
+        box = { width: 250, height: 150 };
+    }
+
     let html5QrcodeScanner = new Html5QrcodeScanner(
         "reader",
-        { fps: 10, qrbox: { width: 250, height: 250 } },
+        { fps: 10, qrbox: box },
             /* verbose= */ false);
     html5QrcodeScanner.render((decodedText, decodedResult) => {
         productID.value = decodedText;

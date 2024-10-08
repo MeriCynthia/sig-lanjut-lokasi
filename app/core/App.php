@@ -15,14 +15,14 @@ class App {
         if(isset($_SESSION['user'])){
           $this->controller = "Home"; // halaman default setelah login
           if(isset($url[0])){ // cek url kontroller sudah disebut
-              if(file_exists('../app/controllers/' . ucfirst($url[0]). '.php')) {
+              if(file_exists(__DIR__.'/../app/controllers/' . ucfirst($url[0]). '.php')) {
                   $this->controller = ucfirst($url[0]); // ganti kontroller home dengan yg disebut
                   unset($url[0]); // agar sisanya bisa dipakai params
               }
           }
         }
         
-        require_once "../app/controllers/" . $this->controller . ".php";
+        require_once __DIR__."/../app/controllers/" . $this->controller . ".php";
         // buat objek yang akan memanggil construct masing"
         $this->controller = new $this->controller;
 

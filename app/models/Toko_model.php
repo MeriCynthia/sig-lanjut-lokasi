@@ -23,7 +23,7 @@ class Toko_model
 
   public function tambahToko($newToko)
   {
-    $sql = "INSERT INTO toko (`name`, `alamat`, `lat`, `lng`) 
+    $sql = "INSERT INTO toko (name, alamat, lat, lng) 
       VALUES (:name, :alamat, :lat, :lng)";
 
     // Menyiapkan query
@@ -42,7 +42,7 @@ class Toko_model
   public function updateTokoById($id, $newToko)
   {
     // die(var_dump($id, $newToko));
-    $sql = "UPDATE toko SET `name` = :name, `alamat` = :name, `lat` = :lat, `lng` = :lng  WHERE `id` = :id";
+    $sql = "UPDATE toko SET name = :name, alamat = :name, lat = :lat, lng = :lng  WHERE id = :id";
     $this->db->query($sql);
     $this->db->bind(':id', $id);
     $this->db->bind(':name', $newToko['name']);
@@ -56,7 +56,7 @@ class Toko_model
 
   public function deleteTokoById($id)
   {
-    $sql = "DELETE FROM toko WHERE `id` = :id";
+    $sql = "DELETE FROM toko WHERE id = :id";
     $this->db->query($sql);
     $this->db->bind(':id', $id);
 

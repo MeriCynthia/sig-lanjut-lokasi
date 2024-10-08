@@ -24,11 +24,11 @@ class Produk_model
 
     public function tambahDataProduk($produk)
     {
-        $sql = "INSERT INTO " . $this->table . " (`id`, `name`) VALUES (:id, :nama)
-        ON DUPLICATE KEY UPDATE `name` = VALUES(`name`)";
+        $sql = "INSERT INTO " . $this->table . " (id, name) VALUES (:id, :nama)
+        ON DUPLICATE KEY UPDATE name = VALUES(name)";
         $this->db->query($sql);
-        $this->db->bind('id', $produk['id']);
-        $this->db->bind('nama', $produk['name']);
+        $this->db->bind(':id', $produk['id']);
+        $this->db->bind(':nama', $produk['name']);
 
         $this->db->execute();
         return $this->db->rowCount(); // Mengembalikan 0 Jika False(tidak terjadi perubahan, id dan value sama persis), 1 untuk INSERT baru, atau 2 jika terjadi UPDATE
@@ -36,10 +36,10 @@ class Produk_model
 
     public function updateProductById($id, $name)
     {
-        $sql = "UPDATE " . $this->table . " SET `name` = :nama  WHERE `id` = :id";
+        $sql = "UPDATE " . $this->table . " SET name = :nama  WHERE id = :id";
         $this->db->query($sql);
-        $this->db->bind('id', $id);
-        $this->db->bind('nama', $name);
+        $this->db->bind(':id', $id);
+        $this->db->bind(':nama', $name);
 
         $this->db->execute();
         return $this->db->rowCount();
@@ -47,9 +47,9 @@ class Produk_model
 
     public function deleteProductById($id)
     {
-        $sql = "DELETE FROM " . $this->table . " WHERE `id` = :id";
+        $sql = "DELETE FROM " . $this->table . " WHERE id = :id";
         $this->db->query($sql);
-        $this->db->bind('id', $id);
+        $this->db->bind(':id', $id);
 
         $this->db->execute();
         return $this->db->rowCount();

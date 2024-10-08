@@ -27,15 +27,15 @@ class Transaksi_model
 
     $sql = "SELECT * FROM transaksi WHERE prod_id = :pro_id AND toko_id = :tok_id";
     $this->db->query($sql);
-    $this->db->bind('pro_id', $prod_id);
-    $this->db->bind('tok_id', $toko_id);
+    $this->db->bind(':pro_id', $prod_id);
+    $this->db->bind(':tok_id', $toko_id);
 
     $this->db->execute();
 
     $cekData = $adaData = $this->db->single();
     if ($adaData) {
       // cek apakah sama persis, jika iya maka kirim badut
-      unset($cekData["id"]);
+      unset($cekData['id']);
       $cekDataBaru = array_merge($transaksi, ["user_id" => $_SESSION['user']['id']]);
       // die(var_dump($cekData, $cekDataBaru));
       if($cekData == $cekDataBaru) {
@@ -47,7 +47,7 @@ class Transaksi_model
     } else {
 
       // Query untuk menambah atau memperbarui transaksi, tanpa masalah
-      $sql = "INSERT INTO " . $this->table . " (`prod_id`, `toko_id`, `harga`, `user_id`) 
+      $sql = "INSERT INTO " . $this->table . " (prod_id, toko_id, harga, user_id) 
       VALUES (:prod_id, :toko_id, :harga, :user_id)";
 
       // Menyiapkan query
@@ -81,9 +81,9 @@ class Transaksi_model
 
   public function deleteTransaksiById($id)
     {
-        $sql = "DELETE FROM " . $this->table . " WHERE `id` = :id";
+        $sql = "DELETE FROM " . $this->table . " WHERE id = :id";
         $this->db->query($sql);
-        $this->db->bind('id', $id);
+        $this->db->bind(':id', $id);
 
         $this->db->execute();
         return $this->db->rowCount();

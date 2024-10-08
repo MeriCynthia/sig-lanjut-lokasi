@@ -20,7 +20,7 @@ if (getenv('VERCEL_ENV') === 'production' || getenv('VERCEL_ENV') === 'preview')
   
 } else {
   // sesuaikan nama url !!! hati-hati terhadap konfigurasi route ke server
-  define('BASEURL', 'http://localhost:8080/mm-salin/public'); // kita arahkan ke halaman public
+  define('BASEURL', 'http://localhost:8080/mm/public'); // kita arahkan ke halaman public
 
   define('DSN', "mysql:host=localhost:3306;dbname=poi_db;charset=utf8mb4");
   define('DB_USER', 'root');

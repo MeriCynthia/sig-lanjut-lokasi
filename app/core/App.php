@@ -9,7 +9,7 @@ class App {
     public function __construct() {
         
         $url = $this->parseURL();
-        // var_dump($url);
+        die(var_dump($url));
         
         //cek data sesi login apa sudah terjadi, melalui apa ada data dalam session user
         if(isset($_SESSION['user'])){

@@ -6,20 +6,19 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 include '../../app/config/config.php';
 
-$host = DB_HOST;
+$dsn = DSN;
 $user = DB_USER;
 $pw = DB_PASS;
-$db = DB_NAME;
 
 try {
-  $conn = new PDO("mysql:host=$host;dbname=$db", $user, $pw);
+  $conn = new PDO($dsn, $user, $pw);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   
 } catch (PDOException $e) {
   // Log error instead of echoing
   error_log("Database connection failed: " . $e->getMessage());
   // Optionally display a user-friendly message
-  echo "Database connection failed. Please try again later.";
+  echo "Database connection failed. For 'Search-Code' Please try again later.";
   exit();
 }
 

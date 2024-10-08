@@ -1,28 +1,28 @@
 <?php
 
 class Database {
-  private $host = DB_HOST;
+
   private $user = DB_USER;
   private $pass = DB_PASS;
-  private $db_name = DB_NAME;
+  private $dsn = DSN;
   
   private $dbh; // database handler
   private $stmt;
   
   public function __construct() {
-    // data source name
-   $dsn = 'mysql:host='.$this->host.';dbname='.$this->db_name.";charset=utf8mb4";
-    $option=[
+
+    // db jadi dinamis menyesuaikan mysql (local) atau postgre (preview & prod) 
+    $option= [
       PDO::ATTR_PERSISTENT => true,
       PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
       PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC // Make the default fetch be an associative array
       ];
     
     try {
-      $this->dbh = new PDO($dsn, $this->user, $this->pass, $option);
+      $this->dbh = new PDO($this->dsn, $this->user, $this->pass, $option);
     } catch(Exception $e) {
       error_log($e->getMessage());
-      exit('Something bad happened');
+      exit('Something bad happened about database config');
     }
   }
   

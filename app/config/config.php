@@ -1,44 +1,28 @@
 <?php
 
-if (isset($_ENV['ENV']) && $_ENV['ENV'] == 'production') {
-  define('BASEURL', $_ENV['APP_URL']);
+// 2 konfigurasi: untuk local [mysql] & (preview & production) [pgsql]
+if (getenv('VERCEL_ENV') === 'production' || getenv('VERCEL_ENV') === 'preview') {
+  // ambil nama url secara dinamis. using X-Forwarded-Proto header, which is set by Vercel to indicate whether the request was made over HTTPS.
+  $protocol = (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ? 'https://' : 'http://';
+  $fullUrl = $protocol . $_SERVER['HTTP_HOST'];
 
-  define('DB_HOST', $_ENV['PG_HOST']);
-  define('DB_NAME', 'poi_db');
-  define('DB_USER', 'root');
-  define('DB_PASS', '');
+  define('BASEURL', $fullUrl);
 
   $host = $_ENV['PG_HOST'];
   $port = $_ENV['PG_PORT'];
   $db = $_ENV['PG_DB'];
-  $user = $_ENV['PG_USER'];
-  $password = $_ENV['PG_PASSWORD'];
-  // $endpoint = $_ENV['PG_ENDPOINT'];
-
-  try {
-    $dsn = "pgsql:host=$host;port=$port;dbname=$db;sslmode=require";
-    
-    // make a database connection
-    $pdo = new PDO($dsn, $user, $password, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
   
-  } catch (PDOException $e) {
-    die("Connection failed: ".$e->getMessage());
-  }
-
-  // $connection_string = "host=" . $host . " port=" . $port . " dbname=" . $db . " user=" . $user . " password=" . $password . " options='endpoint=" . $endpoint . "' sslmode=require";
-
-  // $dbconn = pg_connect($connection_string);
-
-  // if (!$dbconn) {
-  //   die("Connection failed: " . pg_last_error());
-  // }
-  // echo "Connected successfully";
+  // $endpoint = $_ENV['PG_ENDPOINT']; // endpoint tidak dipakai
+  // Data Source Name (DSN) bernilai dinamis
+  define('DSN', "pgsql:host=$host;port=$port;dbname=$db;sslmode=require");
+  define('DB_USER', $_ENV['PG_USER']);
+  define('DB_PASS', $_ENV['PG_PASSWORD']);
+  
 } else {
-  // sesuaikan nama url
-  define('BASEURL', 'http://localhost:8080/mm/public');
-  // DB
-  define('DB_HOST', 'localhost:3306');
-  define('DB_NAME', 'poi_db');
+  // sesuaikan nama url !!! hati-hati terhadap konfigurasi route ke server
+  define('BASEURL', 'http://localhost:8080/mm-salin/public'); // kita arahkan ke halaman public
+
+  define('DSN', "mysql:host=localhost:3306;dbname=poi_db;charset=utf8mb4");
   define('DB_USER', 'root');
   define('DB_PASS', '');
 }

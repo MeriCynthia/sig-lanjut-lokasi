@@ -10,8 +10,7 @@
   ],
   
   "env": {
-    "ENV": "production",
-    "APP_URL": "https://gis-loc-search.vercel.app/",
+    "APP_URL": "https://gis-loc-search.vercel.app",
     "PG_HOST": "ep-frosty-haze-a1kda0nu.ap-southeast-1.aws.neon.tech",
     "PG_PORT": "5432",
     "PG_DB": "neondb",

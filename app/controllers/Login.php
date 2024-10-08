@@ -67,8 +67,9 @@ class Login extends Controller
                 // die(var_dump($imageFilesInDatabase));
                 // Convert the database results to an array of file names
                 $databaseFiles = array_column($imageFilesInDatabase, 'gambar');
-                if (count($databaseFiles) == 0) die("database empty?"); // mencegah semua data di file terhapus
-                
+                if (count($databaseFiles) == 0)
+                    die("database empty?"); // mencegah semua data di file terhapus
+
                 // Find the files that are in the directory but not in the database
                 $filesToDelete = array_diff($imageFiles, $databaseFiles);
                 // Loop through the files to delete and remove them
@@ -102,6 +103,9 @@ class Login extends Controller
             $email = $_SESSION['user']['email'] = $_POST['email'];
             $pin = $_SESSION['user']['pin'] = $_POST['pin'];
             $url = BASEURL;
+            // var_dump($url);
+            // echo "<br/> masuk url login/verfikasi";
+            // die();
 
             if ($user = $this->model('User_model')->getUserByEmailnPin($email, $pin)) {
                 $nama = $_SESSION['user']['name'] = $user['name'];
@@ -123,5 +127,7 @@ class Login extends Controller
                     </script>";
             }
         }
+        // echo "<br/> gagal masuk url login/verfikasi";
+        // die();
     }
 }

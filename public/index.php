@@ -11,7 +11,19 @@ if (empty($_SESSION['csrf_token'])) {
   // Jika belum ada, buat token CSRF yang unik
   $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
-// echo "ok";
+
 require_once __DIR__.'/../app/init.php';
 
 $app = new App;
+
+// // cek lingkungan pengembangan
+// if (getenv('VERCEL_ENV') === 'production') {
+//   // Kode untuk lingkungan produksi
+//   echo "We're in production!";
+// } elseif (getenv('VERCEL_ENV') === 'preview') {
+//   // Kode untuk lingkungan preview
+//   echo "We're in preview!";
+// } else {
+//   // Kode untuk lingkungan pengembangan
+//   echo "We're in development!";
+// }

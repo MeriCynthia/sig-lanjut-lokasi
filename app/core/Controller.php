@@ -6,10 +6,10 @@ class Controller {
     }
   
     public function model($model) {
-      if(file_exists(__DIR__."/../app/models/".$model.".php")){
+      if(file_exists(__DIR__.'/../models/'.$model.'.php')){
+          require_once __DIR__.'/../models/'.$model.'.php';
+          return new $model;
       }
-        require_once '../app/models/'.$model.'.php';
-        return new $model;
     }
 }
 

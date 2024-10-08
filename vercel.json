@@ -1,0 +1,22 @@
+{
+  "functions": {
+    "api/*.php": {
+      "runtime": "vercel-php@0.6.0"
+    }
+  },
+  "routes": [
+    { "src": "/(.*)",  "dest": "/api/index.php" },
+    { "src": "/app/(.*)",  "dest": "/app/index.php" }
+  ],
+  
+  "env": {
+    "ENV": "production",
+    "APP_URL": "https://sig-loc-search-product.vercel.app/",
+    "PG_HOST": "ep-white-pine-a1v1fk7t.ap-southeast-1.aws.neon.tech",
+    "PG_PORT": "5432",
+    "PG_DB": "neondb",
+    "PG_USER": "neondb_owner",
+    "PG_PASSWORD": "sx8WiMJmPBn4",
+    "PG_ENDPOINT": "ep-white-pine-a1v1fk7t"
+  }
+}

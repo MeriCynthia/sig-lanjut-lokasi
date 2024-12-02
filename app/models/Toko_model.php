@@ -42,10 +42,10 @@ class Toko_model
   public function updateTokoById($id, $newToko)
   {
     // die(var_dump($id, $newToko));
-    $sql = "UPDATE toko SET name = :name, alamat = :alamat, lat = :lat, lng = :lng  WHERE id = :id";
+    $sql = "UPDATE toko SET name = :named, alamat = :alamat, lat = :lat, lng = :lng  WHERE id = :id";
     $this->db->query($sql);
     $this->db->bind(':id', $id);
-    $this->db->bind(':name', $newToko['name']);
+    $this->db->bind(':named', $newToko['name']);
     $this->db->bind(':alamat', $newToko['alamat']);
     $this->db->bind(':lat', $newToko['lat']);
     $this->db->bind(':lng', $newToko['lng']);

@@ -8,7 +8,7 @@ display_flash_message();
     width: 100%;
   }
 </style>
-<a href="<?= BASEURL ?>/toko" class="col-12 btn btn-secondary btn-sm mb-2">&larr; Kembali</a>
+<a href="<?= BASEURL ?>/toko/index" class="col-12 btn btn-secondary btn-sm mb-2">&larr; Kembali</a>
 <div class="row">
   <div class="col-lg-8 mb-2">
     <div class="card z-index-3" id="map"></div>

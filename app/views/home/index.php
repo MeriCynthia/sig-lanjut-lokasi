@@ -305,13 +305,13 @@
                 .then(data => {
                     console.log("data fetching: ", data);
                     // berikan nama produk di badge "namaproduk"
-                    namaProduk.innerHTML = data[0].produk_name;
                     if (data.length == 0) {
                         if (confirm(`Code ${productID.value} tidak ditemukan di database 😔.\nIngin Menambahkan Data Produk ini 😙?`)) {
                             window.location.href = `<?= BASEURL ?>/produk/create?id=${productID.value}`;
                         }
                         return false;
                     }
+                    namaProduk.innerHTML = data[0].produk_name;
                     console.log("Filter Data...");
                     const shops = data.filter(shop => {
                         const distance = calculateDistance({ lat: circle.getCenter().lat(), lng: circle.getCenter().lng() }, { lat: shop.lat, lng: shop.lng });

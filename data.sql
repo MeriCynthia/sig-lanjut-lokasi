@@ -15,12 +15,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Membuang struktur basisdata untuk poi_db
-DROP DATABASE IF EXISTS `poi_db`;
-CREATE DATABASE IF NOT EXISTS `poi_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `poi_db`;
+-- Membuang struktur basisdata untuk pois_db
+DROP DATABASE IF EXISTS `pois_db`;
+CREATE DATABASE IF NOT EXISTS `pois_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `pois_db`;
 
--- membuang struktur untuk table poi_db.produk
+-- membuang struktur untuk table pois_db.produk
 DROP TABLE IF EXISTS `produk`;
 CREATE TABLE IF NOT EXISTS `produk` (
   `id` char(13) NOT NULL DEFAULT '',
@@ -28,16 +28,17 @@ CREATE TABLE IF NOT EXISTS `produk` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Membuang data untuk tabel poi_db.produk: ~5 rows (lebih kurang)
+-- Membuang data untuk tabel pois_db.produk: ~5 rows (lebih kurang)
 DELETE FROM `produk`;
 INSERT INTO `produk` (`id`, `name`) VALUES
-	('2234567890120', 'Aqua 100ml'),
-	('2234567890121', 'Sari Roti'),
-	('1234567890123', 'New Orleans ml'),
-	('1234567890124', 'Paris ml'),
-	('2234567890129', 'Le Mineral');
+  ('2234567890120', 'Cleo 100ml'),
+  ('2234567890121', 'Golden Bread'),
+  ('1234567890123', 'Lemonade 250ml'),
+  ('1234567890124', 'Tokyo Juice 250ml'),
+  ('2234567890129', 'Pure Water');
 
--- membuang struktur untuk table poi_db.toko
+
+-- membuang struktur untuk table pois_db.toko
 DROP TABLE IF EXISTS `toko`;
 CREATE TABLE IF NOT EXISTS `toko` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -48,15 +49,12 @@ CREATE TABLE IF NOT EXISTS `toko` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Membuang data untuk tabel poi_db.toko: ~7 rows (lebih kurang)
+-- Membuang data untuk tabel pois_db.toko: ~7 rows (lebih kurang)
 DELETE FROM `toko`;
 INSERT INTO `toko` (`id`, `name`, `alamat`, `lat`, `lng`) VALUES
-	(1, 'toko1', 'Jl.Soekarno', -0.04183445144272559, 109.32028965224141),
-	(2, 'toko2', 'Jl.Soetoyo', -0.04520722723041784, 109.36358881291396),
-	(3, 'toko3', 'Jl.Hatta', -0.05623711446160067, 109.3372446919995),
-	(4, 'Toko Budi', 'Jl. Keramat Jati', -0.05623711446160067, 109.3372446919995),
-	(5, 'Toko Budi', 'Jl. Keramat Jati', -0.05623711446160067, 109.3372446919995),
-	(6, 'Toko Budi', 'Jl. Keramat Jati', -0.05623711446160067, 109.3372446919995);
+	(1, 'Toko A', 'Jl. Merdeka', -0.042143916180070934, 109.36035124986022), 
+(2, 'Toko B', 'Jl. Raya', -0.04520722723041784, 109.36358881291396),
+(3, 'Toko C', 'Jl. Sudirman', -0.05623711446160067, 109.3372446919995);
 
 
 
@@ -73,8 +71,8 @@ CREATE TABLE IF NOT EXISTS `pengguna` (
 
 DELETE FROM `pengguna`;
 INSERT INTO `pengguna` (`id`, `name`, `email`, `telp`, `pin`) VALUES
-	(1, 'Budi Nugraha', 'a@a.a', '081234567891', '123456'),
-	(2, 'Andi Sebastian', 'c@c.c', '082148213646', '123458');
+	(1, 'Amelia Putri', 'a@a.a', '081234567891', '123456'),
+	(2, 'Rohan Sebastian', 'b@b.b', '082148213646', '123458');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
@@ -82,7 +80,7 @@ INSERT INTO `pengguna` (`id`, `name`, `email`, `telp`, `pin`) VALUES
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
 
--- membuang struktur untuk table poi_db.transaksi
+-- membuang struktur untuk table pois_db.transaksi
 DROP TABLE IF EXISTS `transaksi`;
 CREATE TABLE IF NOT EXISTS `transaksi` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -99,11 +97,15 @@ CREATE TABLE IF NOT EXISTS `transaksi` (
   CONSTRAINT `FK_transaksi_pengguna` FOREIGN KEY (`pengguna_id`) REFERENCES `pengguna` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Membuang data untuk tabel poi_db.transaksi: ~2 rows (lebih kurang)
+-- Membuang data untuk tabel pois_db.transaksi: ~2 rows (lebih kurang)
 DELETE FROM `transaksi`;
 INSERT INTO `transaksi` (`id`, `prod_id`, `toko_id`, `harga`, `pengguna_id`) VALUES
-	(5, '1234567890123', 1, 3000, 1),
-	(7, '2234567890121', 2, 3000, 1);
+	(1, '1234567890123', 1, 3000, 1),
+	(2, '1234567890123', 2, 3000, 1),
+	(3, '1234567890123', 3, 3000, 1),
+	(4, '1234567890124', 1, 3000, 1),
+	(5, '1234567890124', 2, 3000, 1),
+	(6, '1234567890124', 3, 3000, 1);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

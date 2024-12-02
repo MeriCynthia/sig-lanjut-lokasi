@@ -1,12 +1,16 @@
 <?php
 
 // // 2 konfigurasi: untuk local [mysql] & (preview & production) [pgsql]
+// if (true) {
 if (getenv('VERCEL_ENV') === 'production' || getenv('VERCEL_ENV') === 'preview') {
   // ambil nama url secara dinamis. using X-Forwarded-Proto header, which is set by Vercel to indicate whether the request was made over HTTPS.
   $protocol = (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ? 'https://' : 'http://';
   $fullUrl = $protocol . $_SERVER['HTTP_HOST'];
 
+  
   define('BASEURL', $fullUrl); // untuk production
+  // unuk testing database host di local
+  // define('BASEURL', "https://sig-lanjut-lokasi.vercel.app"); // untuk production
 
   $host = $_ENV['PG_HOST'] ?? "ep-frosty-haze-a1kda0nu.ap-southeast-1.aws.neon.tech";
   $port = $_ENV['PG_PORT'] ?? "5432";
@@ -21,7 +25,7 @@ if (getenv('VERCEL_ENV') === 'production' || getenv('VERCEL_ENV') === 'preview')
   define('DB_ENDPOINT', $_ENV['PG_ENDPOINT'] ?? "ep-frosty-haze-a1kda0nu");
 
   // postgresql://neondb_owner:WDB1yOzHSk5R@ep-frosty-haze-a1kda0nu.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
-
+  define('DB_NOW_MYSQL', false);
 } else {
     // echo "<script>
     //       alert('Database mySQL');
@@ -30,7 +34,7 @@ if (getenv('VERCEL_ENV') === 'production' || getenv('VERCEL_ENV') === 'preview')
   // sesuaikan nama url !!! hati-hati terhadap konfigurasi route ke server
   define('BASEURL', 'http://localhost:8080/mm/public'); // kita arahkan ke halaman public
   // var_dump($host, $port, $db, DB_USER, DB_PASS);
-  define('DSN', "mysql:host=localhost:3306;dbname=poi_db;charset=utf8mb4");
+  define('DSN', "mysql:host=localhost:3306;dbname=pois_db;charset=utf8mb4");
   define('DB_USER', 'root');
   define('DB_PASS', '');
 }

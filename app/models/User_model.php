@@ -27,12 +27,12 @@ class User_model {
     // tambah data user
     public function tambahDataUser() {
         // $sql = "INSERT INTO pengguna (`nama`, `email`, `telp`, `pin`) VALUES (:nama, :email, :telp, :pin)";
-        $sql = "INSERT INTO pengguna (nama, email, telp, pin) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO pengguna (name, email, telp, pin) VALUES (?, ?, ?, ?)";
         $this->db->query($sql);
-        $this->db->bind(1,$_SESSION["user"]["nama"]);
-        $this->db->bind(2,$_SESSION["user"]["email"]);
-        $this->db->bind(3,$_SESSION["user"]["telp"]);
-        $this->db->bind(4,$_SESSION["user"]["pin"]);
+        $this->db->bind(1,$_SESSION["pengguna"]["name"]);
+        $this->db->bind(2,$_SESSION["pengguna"]["email"]);
+        $this->db->bind(3,$_SESSION["pengguna"]["telp"]);
+        $this->db->bind(4,$_SESSION["pengguna"]["pin"]);
 
         $this->db->execute();
         return $this->db->rowCount();

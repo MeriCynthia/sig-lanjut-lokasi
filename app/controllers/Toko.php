@@ -52,17 +52,17 @@ class Toko extends Controller {
         }
     }
 
-    public function edit($id)
+    public function edit($params)
     {
         $data['judul'] = 'Toko';
         $data['aktif'] = 3;
-        $data['toko'] = $this->model('Toko_model')->getTokoById($id);
+        $data['toko'] = $this->model('Toko_model')->getTokoById($params['id']);
         $this->view('templates/header', $data);
         $this->view('toko/edit', $data);
         $this->view('templates/footer');
     }
 
-    public function update($id)
+    public function update($params)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Periksa apakah metode sebenarnya adalah PUT
@@ -73,7 +73,7 @@ class Toko extends Controller {
                 }
                 unset($_POST["csrf_token"], $_POST["_method"]);
                 // die(var_dump($_POST));
-                if ($this->model('toko_model')->updateTokoById($id, $_POST) > 0) {
+                if ($this->model('toko_model')->updateTokoById($params['id'], $_POST) > 0) {
                     set_flash_message('Data berhasil Diupdate 🤩!', 'success');
                 } else {
                     set_flash_message('Data gagal Diupdate 😢!', 'danger');
@@ -84,7 +84,7 @@ class Toko extends Controller {
         exit();
     }
 
-    public function delete($id)
+    public function delete($params)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
@@ -93,7 +93,7 @@ class Toko extends Controller {
             unset($_POST["csrf_token"]);
 
             if (isset($_POST['_method']) && $_POST['_method'] === 'DELETE') {
-                if ($this->model('Toko_model')->deleteTokoById($id) > 0) {
+                if ($this->model('Toko_model')->deleteTokoById($params['id']) > 0) {
                     set_flash_message('Data berhasil Dihapus 🤩!', 'success');
                 } else {
                     set_flash_message('Data gagal Dihapus 😢!', 'danger');

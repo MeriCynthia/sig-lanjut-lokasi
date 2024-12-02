@@ -58,6 +58,7 @@ display_flash_message();
     // Fetch data dari API
     const response = await fetch('<?= BASEURL ?>/toko/apiAllToko');
     const data = await response.json();
+    console.log(data);
     console.log(+data[0].lat, typeof +data[0].lat);
 
 

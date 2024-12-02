@@ -13,11 +13,13 @@ class Produk extends Controller
         $this->view('templates/footer');
     }
 
-    public function create($id = null)
+    public function create($params = null)
     {
         $data['judul'] = 'Produk';
         $data['aktif'] = 1;
-        $data['id'] = $id;
+        if(isset($params['id'])) {
+            $data['id'] = $params['id'];
+        }
         $this->view('templates/header', $data);
         $this->view('produk/tambah', $data);
         $this->view('templates/footer');
@@ -53,18 +55,18 @@ class Produk extends Controller
         }
     }
 
-    public function edit($id)
+    public function edit($params)
     {
         $data['judul'] = 'Produk';
         $data['aktif'] = 1;
         $data['product'] = $this->model('Produk_model')->getProdukById();
-        $data['id'] = $id;
+        $data['id'] = $params['id'];
         $this->view('templates/header', $data);
         $this->view('produk/edit', $data);
         $this->view('templates/footer');
     }
 
-    public function update($id)
+    public function update($params)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Periksa apakah metode sebenarnya adalah PUT
@@ -75,7 +77,7 @@ class Produk extends Controller
                 }
                 unset($_POST["csrf_token"]);
 
-                if ($this->model('Produk_model')->updateProductById($id, $_POST['name']) > 0) {
+                if ($this->model('Produk_model')->updateProductById($params['id'], $_POST['name']) > 0) {
                     set_flash_message('Data berhasil Diupdate 🤩!', 'success');
                 } else {
                     set_flash_message('Data gagal Diupdate 😢!', 'danger');
@@ -86,7 +88,7 @@ class Produk extends Controller
         exit();
     }
 
-    public function delete($id)
+    public function delete($params)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
@@ -95,7 +97,7 @@ class Produk extends Controller
             unset($_POST["csrf_token"]);
 
             if (isset($_POST['_method']) && $_POST['_method'] === 'DELETE') {
-                if ($this->model('Produk_model')->deleteProductById($id) > 0) {
+                if ($this->model('Produk_model')->deleteProductById($params['id']) > 0) {
                     set_flash_message('Data berhasil Dihapus 🤩!', 'success');
                 } else {
                     set_flash_message('Data gagal Dihapus 😢!', 'danger');

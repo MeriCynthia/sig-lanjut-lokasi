@@ -2,8 +2,100 @@
 // Tampilkan flash message jika ada
 display_flash_message();
 ?>
-<a href="<?= BASEURL; ?>/produk/create" class="w-100 btn btn-icon btn-3 btn-success m-2" type="button">
-    <i class="fa-solid fa-plus"></i> Tambahkan Produk</a>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+    }
+
+    .btn-pink {
+        background-color: #f7a9c7; /* Soft pink */
+        color: white;
+        border-radius: 25px;
+        padding: 12px 24px;
+        transition: background-color 0.3s ease;
+        font-weight: bold;
+        border: none;
+    }
+
+    .btn-pink:hover {
+        background-color: #f1a0c5; /* Lighter pink on hover */
+    }
+
+    .card {
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-body {
+        background-color: #fff;
+        padding: 20px;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #fafafa; /* Light grey background for odd rows */
+    }
+
+    .table th, .table td {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .form-label {
+        font-size: 1rem;
+        font-weight: bold;
+        color: #6f42c1; /* Soft purple */
+    }
+
+    .form-control {
+        border-radius: 25px;
+        border: 1px solid #e1e1e1;
+        padding: 10px 20px;
+    }
+
+    .form-control:focus {
+        border-color: #f7a9c7;
+        box-shadow: 0 0 5px rgba(247, 169, 199, 0.5);
+    }
+
+    .modal-header {
+        background-color: #f7a9c7;
+        color: white;
+    }
+
+    .modal-content {
+        border-radius: 15px;
+    }
+
+    .badge {
+        background-color: #f7a9c7;
+        color: white;
+        font-size: 1rem;
+        padding: 8px 20px;
+        border-radius: 25px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 576px) {
+        .btn-pink {
+            font-size: 1rem;
+            padding: 10px 20px;
+        }
+
+        .table th, .table td {
+            font-size: 0.9rem;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+    }
+</style>
+<a href="<?= BASEURL; ?>/produk/create" class="w-100 btn btn-icon btn-3 btn-pink m-2" type="button">
+    <i class="fa-solid fa-plus"></i> Tambahkan Produk
+</a>
+
 <div class="table-responsive-md">
     <table class="table table-striped">
         <thead>
@@ -28,11 +120,11 @@ display_flash_message();
             <?php endforeach; ?>
         </tbody>
     </table>
-    <!-- modal -->
+
+    <!-- Modal Edit -->
     <div class="modal fade" tabindex="-1" id="modal-edit" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <form id="edit-link" method="post" enctype="multipart/form-data" class="modal-content needs-validation"
-                novalidate>
+            <form id="edit-link" method="post" enctype="multipart/form-data" class="modal-content needs-validation" novalidate>
                 <div class="modal-header">
                     <h5 class="modal-title" id="modal-edit-head">Menu Edit</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -47,17 +139,17 @@ display_flash_message();
                     <div class="">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" class="form-control" id="name" name="name" required>
-                        <div class="invalid-feedback">
-                            Please provide a valid Name.
-                        </div>
+                        <div class="invalid-feedback">Please provide a valid Name.</div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-info">Update Data</button>
+                    <button type="submit" class="btn btn-pink">Update Data</button>
                 </div>
             </form>
         </div>
     </div>
+
+    <!-- Modal Delete -->
     <div class="modal fade" tabindex="-1" id="modal-delete" aria-labelledby="hapusModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -67,7 +159,6 @@ display_flash_message();
                 </div>
                 <form id="delete-link" class="modal-footer" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="_method" value="DELETE">
-                    <!-- Optional: CSRF Token -->
                     <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                     <button type="submit" class="btn btn-danger">Hapus</button>
                 </form>
@@ -95,7 +186,7 @@ display_flash_message();
         modalEdit.addEventListener('show.bs.modal', function (event) {
             var id = event.relatedTarget.getAttribute('data-id'); // Button that triggered the modal
             var name = event.relatedTarget.getAttribute('data-name'); // Button that triggered the modal
-            var link = `<?= BASEURL ?>/produk/update/${id}`;
+            var link = `<?= BASEURL ?>/produk/update?id=${id}`;
             console.log(link);
             document.getElementById('edit-link').setAttribute('action', link);
             document.getElementById('code').value = id;
@@ -106,7 +197,7 @@ display_flash_message();
         modalHapus.addEventListener('show.bs.modal', function (event) {
             var id = event.relatedTarget.getAttribute('data-id'); // Button that triggered the modal
             var name = event.relatedTarget.getAttribute('data-name'); // Button that triggered the modal
-            var link = `<?= BASEURL ?>/produk/delete/${id}`;
+            var link = `<?= BASEURL ?>/produk/delete?id=${id}`;
             console.log(link);
             document.getElementById('delete-link').setAttribute('action', link);
             document.getElementById('modal-delete-head').innerText = `${id} | ${name}`;

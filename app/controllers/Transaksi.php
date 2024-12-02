@@ -58,7 +58,7 @@ class Transaksi extends Controller
         }
     }
 
-    public function update($id)
+    public function update($params)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
@@ -70,7 +70,7 @@ class Transaksi extends Controller
             if (isset($_POST['_method']) && $_POST['_method'] === 'PUT') {
                 $_POST['harga'] = stringToInteger($_POST['harga']);
 
-                $row = $this->model('Transaksi_model')->updateDataTransaksi($id, $_POST);  // Mengembalikan 1 untuk INSERT baru, atau 2 jika terjadi UPDATE
+                $row = $this->model('Transaksi_model')->updateDataTransaksi($params['id'], $_POST);  // Mengembalikan 1 untuk INSERT baru, atau 2 jika terjadi UPDATE
                 if ($row == 2) {
                     set_flash_message('Data berhasil Diupdate 🤩!', 'success');
                 } else {
@@ -82,7 +82,7 @@ class Transaksi extends Controller
         exit();
     }
 
-    public function delete($id)
+    public function delete($params)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Ketika form dikirim, Anda bisa memverifikasi token ini di server
@@ -92,7 +92,7 @@ class Transaksi extends Controller
             unset($_POST["csrf_token"]);
 
             if (isset($_POST['_method']) && $_POST['_method'] === 'DELETE') {
-                if ($this->model('Transaksi_model')->deleteTransaksiById($id) > 0) {
+                if ($this->model('Transaksi_model')->deleteTransaksiById($params['id']) > 0) {
                     set_flash_message('Data berhasil Dihapus 🤩!', 'success');
                 } else {
                     set_flash_message('Data gagal Dihapus 😢!', 'danger');

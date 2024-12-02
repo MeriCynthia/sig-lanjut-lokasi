@@ -18,7 +18,8 @@ display_flash_message();
       <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
       <div class="">
         <label for="code" class="form-label">Code</label>
-        <input type="text" class="form-control" id="code" name="id" value="<?= $data['id'] ?? '' ?>" required>
+        <input type="text" class="form-control" id="code" name="id" value="<?= $data['id'] ?? '' ?>" required
+          maxlength="13" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
         <div class="valid-feedback">
           Nice Code 👍
         </div>
@@ -41,7 +42,7 @@ display_flash_message();
 <script>
   let productID = document.getElementById('code');
   let box = { width: 350, height: 250 };
-  
+
   if (window.innerWidth <= 425) {
     box = { width: 250, height: 150 };
   }

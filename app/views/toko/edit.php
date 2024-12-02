@@ -16,7 +16,7 @@ display_flash_message();
   <div class="col-lg-4">
     <div class="card">
       <div class="card-body pt-0">
-        <form action="<?= BASEURL ?>/toko/update/<?= $data['toko']['id'] ?>" method="post" enctype="multipart/form-data" class="needs-validation"
+        <form action="<?= BASEURL ?>/toko/update?id=<?= $data['toko']['id'] ?>" method="post" enctype="multipart/form-data" class="needs-validation"
           novalidate>
           <input type="hidden" name="_method" value="PUT">
           <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
@@ -58,8 +58,6 @@ display_flash_message();
     // Fetch data dari API
     const response = await fetch('<?= BASEURL ?>/toko/apiAllToko');
     const data = await response.json();
-    console.log(+data[0].lat, typeof +data[0].lat);
-
 
     // Request needed libraries.
     const { Map } = await google.maps.importLibrary("maps");

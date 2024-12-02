@@ -16,7 +16,7 @@ class Login extends Controller
         $data['judul'] = 'Login/Daftar';
 
         if (isset($_POST['daftar'])) {
-
+            // die(var_dump($_POST));
             $_SESSION['pengguna']['name'] = $_POST['name'];
             $_SESSION['pengguna']['email'] = $_POST['email'];
             $_SESSION['pengguna']['telp'] = strval($_POST['telp']);

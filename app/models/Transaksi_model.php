@@ -38,7 +38,7 @@ class Transaksi_model
       unset($cekData['id']);
       $cekDataBaru = array_merge($transaksi, ["pengguna_id" => $_SESSION['pengguna']['id']]);
       // die(var_dump($cekData, $cekDataBaru));
-      if($cekData == $cekDataBaru) {
+      if ($cekData == $cekDataBaru) {
         return 0; // 0 untuk badut
       }
 
@@ -80,12 +80,36 @@ class Transaksi_model
   }
 
   public function deleteTransaksiById($id)
-    {
-        $sql = "DELETE FROM " . $this->table . " WHERE id = :id";
-        $this->db->query($sql);
-        $this->db->bind(':id', $id);
+  {
+    $sql = "DELETE FROM " . $this->table . " WHERE id = :id";
+    $this->db->query($sql);
+    $this->db->bind(':id', $id);
 
-        $this->db->execute();
-        return $this->db->rowCount();
-    }
+    $this->db->execute();
+    return $this->db->rowCount();
+  }
+
+  // untik fetching javascript di home
+  public function getProdukLocsById($id)
+  {
+    // Query untuk mengambil data transaksi, produk, dan toko
+    $sql = "SELECT 
+      t.id AS transaksi_id,
+      t.prod_id AS produk_id,
+      p.name AS produk_name,
+      t.toko_id AS toko_id,
+      tk.name AS toko_name,
+      tk.lat AS lat,
+      tk.lng AS lng,
+      t.harga AS harga
+      FROM transaksi t
+      JOIN produk p ON t.prod_id = p.id
+      JOIN toko tk ON t.toko_id = tk.id
+      WHERE t.prod_id = :id";
+    
+    $this->db->query($sql);
+
+    $this->db->bind(':id', $id);
+    return $this->db->resultSet();
+  }
 }

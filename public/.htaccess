@@ -9,4 +9,6 @@ RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]
 #RewriteEngine On = mekanisme rewrite url
 #RewriteCond % = "{} adalah objek" !-d = melompati akses jika direktori terdeteksi
 # !-f = melompati akses jika file terdeteksi
+# ^(.*)$ = ambil semua url setelah link host
+# [L,QSA] = ??
 #RewriteRule= jika folder dan file tidak ada maka melompatinya dan menyimpan dalam $_GET['url'] 

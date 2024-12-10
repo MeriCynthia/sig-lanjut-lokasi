@@ -11,7 +11,7 @@ class App
     {
 
         $url = $this->parseURL();
-        // die(var_dump($url));
+        die(var_dump($url)); // ubah data menjadi tidak terlihat
 
         //cek data sesi login apa sudah terjadi, melalui apa ada data dalam session user
         if (isset($_SESSION['pengguna'])) {
@@ -26,7 +26,6 @@ class App
                     $this->controller = $class; // ganti kontroller home dengan yg disebut
                     unset($url["object&Method"][0]);
                 }
-                // hilangan, supaya Controller ada default (login or home)
                 // else {
                 //     // // hilangkan method ini nanti, supaya mengambil data default
                 //     // echo "masuk url[0] yg harusnya Object Controller <br/>";

@@ -37,7 +37,6 @@ INSERT INTO `produk` (`id`, `name`) VALUES
   ('1234567890124', 'Tokyo Juice 250ml'),
   ('2234567890129', 'Pure Water');
 
-
 -- membuang struktur untuk table pois_db.toko
 DROP TABLE IF EXISTS `toko`;
 CREATE TABLE IF NOT EXISTS `toko` (

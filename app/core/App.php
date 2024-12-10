@@ -11,7 +11,7 @@ class App
     {
 
         $url = $this->parseURL();
-        die(var_dump($url)); // ubah data menjadi tidak terlihat
+        // die(var_dump($url)); // ubah data menjadi tidak terlihat
 
         //cek data sesi login apa sudah terjadi, melalui apa ada data dalam session user
         if (isset($_SESSION['pengguna'])) {

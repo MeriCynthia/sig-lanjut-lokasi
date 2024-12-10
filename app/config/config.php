@@ -32,7 +32,7 @@ if (getenv('VERCEL_ENV') === 'production' || getenv('VERCEL_ENV') === 'preview')
     //   </script>";
   define('DB_NOW_MYSQL', true);
   // sesuaikan nama url !!! hati-hati terhadap konfigurasi route ke server
-  define('BASEURL', 'http://localhost:8080/mm/public'); // kita arahkan ke halaman public
+  define('BASEURL', 'http://localhost/sig-lanjut-lokasi/public'); // kita arahkan ke halaman public
   // var_dump($host, $port, $db, DB_USER, DB_PASS);
   define('DSN', "mysql:host=localhost:3306;dbname=pois_db;charset=utf8mb4");
   define('DB_USER', 'root');
